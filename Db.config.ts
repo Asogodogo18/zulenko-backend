@@ -30,6 +30,7 @@ export class DbConfig implements TypeOrmOptionsFactory {
         Model,
         Measure,
         Posts,
+        PostsLike
         
       ],
       synchronize: true,

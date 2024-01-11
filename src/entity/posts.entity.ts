@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
+import { Images } from './image.entity';
 
 @Entity({ name: 'posts' })
 export class Posts extends AbstractEntity {
@@ -21,14 +22,16 @@ export class Posts extends AbstractEntity {
   body: string;
   @Column()
   status: boolean;
+  @Column({ type: 'simple-array' })
+  image: Images[];
   //RelationShip
   @ManyToOne(() => User, (user) => user.posts)
   author: User;
   @ManyToOne(() => Comment, (comment) => comment.posts)
   comments: Comment;
-//   @ManyToMany(() => User, (users) => users.postsLike, {
-//     onDelete: 'NO ACTION',
-//     onUpdate: 'NO ACTION',
-//   })
-  userLike: User[];
+  @ManyToMany(() => User, (users) => users.postsLikes, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  userLikes: User[];
 }

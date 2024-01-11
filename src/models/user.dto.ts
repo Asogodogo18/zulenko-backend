@@ -7,25 +7,25 @@ import {
 } from 'class-validator';
 
 export class UserDto {
-  @IsString()
-  @IsEmpty()
-  name?: string;
-  @IsString()
-  @IsEmpty()
-  surname?: string;
-  @IsInt()
-  @IsNotEmpty()
-  @IsPositive()
+  // @IsString()
+  // @IsEmpty()
+  nom?: string;
+  // @IsString()
+  // @IsEmpty()
+  prenom?: string;
+  // @IsInt()
+  // @IsNotEmpty()
+  // @IsPositive()
   contact?: number;
-  @IsString()
-  @IsEmpty()
+  // @IsString()
+  // @IsEmpty()
   avatar?: string;
-  @IsString()
-  @IsEmpty()
+  // @IsString()
+  // @IsEmpty()
   adress?: string;
-  @IsNotEmpty()
+  // @IsNotEmpty()
   username: string;
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   password: string;
 }

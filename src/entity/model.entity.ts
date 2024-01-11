@@ -1,8 +1,18 @@
-import { AbstractEntity } from "src/utils/abstract-entities";
-import {  Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AbstractEntity } from 'src/utils/abstract-entities';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+import { Images } from './image.entity';
 
 @Entity()
-export class Model extends AbstractEntity{
-    @PrimaryGeneratedColumn()
-    id:number
+export class Model extends AbstractEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column({ type: 'simple-array' })
+  variants: Images[];
 }
