@@ -10,12 +10,14 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/entity';
 import { UserDto } from 'src/models/user.dto';
 import { Role } from 'src/interface';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
     private jwtService: JwtService,
+    private userService: UserService,
   ) {}
 
   async Register(credentials: UserDto) {
@@ -37,10 +39,12 @@ export class AuthService {
     };
   }
   async Login({ contact, password }: UserDto) {
-    const authUser = await this.userRepo.findOne({
-      where: { contact },
-    });
+    console.log('password :', password);
+
+    const authUser = await this.userService.findUserByContact(contact);
     const valideUser = authUser.comparePassword(password);
+    console.log('authUser :', authUser);
+
     if (!valideUser) {
       throw new NotFoundException('user credentials errorne');
     } else {

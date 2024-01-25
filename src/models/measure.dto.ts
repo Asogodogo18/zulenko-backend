@@ -1,43 +1,43 @@
 import { IsEmpty, IsNumber } from 'class-validator';
 
 export class MeasureDto {
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   chest: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   waist: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   hips: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   arm_lenght_short: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   arm_lenght_long: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   arm_circumference: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   leg_lenght: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   shoulders: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   collar: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   head_circumference: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   inseam: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   height: number;
-  @IsNumber()
-  @IsEmpty()
+  // @IsNumber()
+  // @IsEmpty()
   tigh_lenght: number;
 }

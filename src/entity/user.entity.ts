@@ -16,6 +16,7 @@ import { Posts } from './posts.entity';
 import { Comment } from './comment.entity';
 import { Role } from 'src/interface';
 import { Collection } from './collection.entity';
+import { Images } from './image.entity';
 
 @Entity({ name: 'users' })
 export class User extends AbstractEntity {
@@ -27,7 +28,7 @@ export class User extends AbstractEntity {
   prenom: string;
   @Column({ unique: true })
   contact: number;
-  @Column({ nullable: true })
+  @Column()
   avatar: string;
   @Column({ nullable: true })
   adress: string;
@@ -44,17 +45,21 @@ export class User extends AbstractEntity {
   }
 
   //RelationShip
+
   @OneToOne(() => Measure, (measures) => measures.client)
   @JoinColumn()
   measure: Measure;
   @OneToMany(() => Posts, (post) => post.author)
-  posts: Posts[];
+  userPosts: Posts[];
   @OneToMany(() => Comment, (comments) => comments.user)
   comments: Comment[];
   @OneToMany(() => Collection, (collections) => collections.author)
   collection: Collection;
 
-  @ManyToMany(() => Posts, (posts) => posts.userLikes,{onDelete:'NO ACTION',onUpdate:'NO ACTION'})
+  @ManyToMany(() => Posts, (posts) => posts.userLikes, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
   @JoinTable({
     name: 'posts_like',
     joinColumn: {
@@ -66,5 +71,5 @@ export class User extends AbstractEntity {
       referencedColumnName: 'id',
     },
   })
-  postsLikes: Posts[]; 
+  postsLikes: Posts[];
 }

@@ -2,10 +2,12 @@ import { AbstractEntity } from 'src/utils/abstract-entities';
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
@@ -17,15 +19,19 @@ export class Posts extends AbstractEntity {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  tite: string;
+  title: string;
   @Column()
   body: string;
   @Column()
   status: boolean;
-  @Column({ type: 'simple-array' })
-  image: Images[];
+  // @Column({ type: 'date',nullable:true })
+  // publish: Date;
   //RelationShip
-  @ManyToOne(() => User, (user) => user.posts)
+  @OneToOne(() => Images, (image) => image.image_url)
+  @JoinColumn({ name: 'posts_image_url' })
+  image: Images;
+  @ManyToOne(() => User, (user) => user.userPosts)
+  @JoinColumn({ name: 'author_id' })
   author: User;
   @ManyToOne(() => Comment, (comment) => comment.posts)
   comments: Comment;
