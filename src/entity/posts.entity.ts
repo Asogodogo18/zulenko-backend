@@ -24,17 +24,23 @@ export class Posts extends AbstractEntity {
   body: string;
   @Column()
   status: boolean;
+  @Column()
+  authorId: number;
   // @Column({ type: 'date',nullable:true })
   // publish: Date;
   //RelationShip
-  @OneToOne(() => Images, (image) => image.image_url)
-  @JoinColumn({ name: 'posts_image_url' })
+  @OneToOne(() => Images, (image) => image.postImage)
+  @JoinColumn({ name: 'posts_image_id' })
   image: Images;
   @ManyToOne(() => User, (user) => user.userPosts)
   @JoinColumn({ name: 'author_id' })
   author: User;
-  @ManyToOne(() => Comment, (comment) => comment.posts)
-  comments: Comment;
+  @ManyToMany(() => User, (users) => users.comments, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  
+  comments: Comment[];
   @ManyToMany(() => User, (users) => users.postsLikes, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',

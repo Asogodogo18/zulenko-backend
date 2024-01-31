@@ -25,6 +25,7 @@ export class AuthService {
     newUser.salt = await bcrypt.genSalt();
     newUser.password = await bcrypt.hash(newUser.password, newUser.salt);
     newUser.role = Role.CLIENT;
+
     try {
       await this.userRepo.save(newUser);
     } catch (error) {
@@ -43,11 +44,9 @@ export class AuthService {
 
     const authUser = await this.userService.findUserByContact(contact);
     const valideUser = authUser.comparePassword(password);
-    console.log('authUser :', authUser);
+    // console.log('authUser :', valideUser);
 
-    if (!valideUser) {
-      throw new NotFoundException('user credentials errorne');
-    } else {
+    if (valideUser) {
       const { password, createAt, salt, updateAt, ...user } = authUser;
       const playload = {
         contact: authUser.contact,
@@ -58,6 +57,8 @@ export class AuthService {
         token,
         ...user,
       };
+    } else {
+      throw new NotFoundException('user credentials errorne');
     }
   }
 }

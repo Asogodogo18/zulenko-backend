@@ -16,7 +16,7 @@ export class UserService {
   async findOneUserById(id: number) {
     const userSearch = await this.userRepo.findOne({
       where: { id },
-      // relations: ['measure',"posts"],
+      relations: ['measure',"userPosts","comments","postsLikes"],
     });
 
     if (!userSearch) {
@@ -24,8 +24,8 @@ export class UserService {
         `${id} ne correspond a aucune enregistrement`,
       );
     } else {
-      const { updateAt, createAt, ...user } = userSearch;
-      return await user;
+      // const { updateAt, createAt, ...user } = userSearch;
+      return await userSearch;
     }
   }
   async findUserByContact(num: number) {

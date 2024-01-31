@@ -1,17 +1,25 @@
 import { AbstractEntity } from 'src/utils/abstract-entities';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { Posts } from './posts.entity';
 
-@Entity({ name: 'comment' })
-export class Comment extends AbstractEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+@Entity({ name: 'commentaire' })
+export class Comment {
+  @PrimaryColumn({ name: 'author_id' })
+  authorId: number;
+  @PrimaryColumn({ name: 'posts_id' })
+  postsId: number;
   @Column()
   body: string;
-  //RelatioShip
-  @ManyToOne(() => User, (users) => users.comments)
-  user: User;
-  @OneToMany(() => Posts, (posts) => posts.comments)
-  posts: Posts;
+
+
 }

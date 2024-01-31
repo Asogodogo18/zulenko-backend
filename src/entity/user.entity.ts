@@ -28,11 +28,11 @@ export class User extends AbstractEntity {
   prenom: string;
   @Column({ unique: true })
   contact: number;
-  @Column()
-  avatar: string;
+  @Column({ nullable: true })
+  avatar?: string;
   @Column({ nullable: true })
   adress: string;
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   username: string;
   @Column()
   password: string;
@@ -51,7 +51,21 @@ export class User extends AbstractEntity {
   measure: Measure;
   @OneToMany(() => Posts, (post) => post.author)
   userPosts: Posts[];
-  @OneToMany(() => Comment, (comments) => comments.user)
+  @ManyToMany(() => Posts, (post) => post.comments, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  @JoinTable({
+    name: 'commentaire',
+    joinColumn: {
+      name: 'author_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'posts_id',
+      referencedColumnName: 'id',
+    },
+  })
   comments: Comment[];
   @OneToMany(() => Collection, (collections) => collections.author)
   collection: Collection;
