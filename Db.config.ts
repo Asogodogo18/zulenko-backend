@@ -11,17 +11,18 @@ import {
   PostsLike,
   User,
 } from 'src/entity';
+import * as fs from 'fs';
 
 @Injectable()
 export class DbConfig implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       type: 'mysql',
-      host: process.env.APP_HOST,
+      host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [
         User,
         Images,
@@ -30,10 +31,12 @@ export class DbConfig implements TypeOrmOptionsFactory {
         Model,
         Measure,
         Posts,
-        PostsLike
-        
+        PostsLike,
       ],
       synchronize: true,
+      ssl: {
+        ca: fs.readFileSync('./src/config/db_cert.pem'), // path to the CA file
+      },
     };
   }
 }
