@@ -15,25 +15,32 @@ import { PostsDto } from 'src/models/posts.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadStorages } from 'src/utils/uploadStorage';
 import { CommentDto } from 'src/models/comment.dto';
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Posts')
 @Controller('posts')
 export class PostsController {
   constructor(private postsServices: PostsService) {}
 
   @Get()
-  findAllPosts(){
-    return this.postsServices.find_posts()
+  findAllPosts() {
+    return this.postsServices.find_posts();
   }
   @Get(':id/author')
   findPostByAuthorId(@Param('id', ValidationPipe) id) {
     return this.postsServices.find_posts_by_authorId(id);
   }
+
+  @ApiOperation({ summary: 'Get a post by ID' })
+  @ApiParam({ name: 'id', description: 'The ID of the post' })
   @Get(':id')
   findPostsById(@Param('id', ValidationPipe) id) {
     return this.postsServices.find_posts_by_id(id);
   }
 
   @Post(':user')
+  @ApiOperation({ summary: 'Create a new post' })
+  @ApiBody({ type: PostsDto, description: 'Post data' })
   @UseInterceptors(FilesInterceptor('image', 6, UploadStorages))
   create_Posts(
     @Param('user', ValidationPipe) user,
@@ -56,7 +63,7 @@ export class PostsController {
   createPostsComment(
     @Param('userId', ValidationPipe) userId,
     @Param('postsId', ValidationPipe) postsId,
-    @Body() comment:CommentDto,
+    @Body() comment: CommentDto,
   ) {
     return this.postsServices.create_posts_comment(userId, postsId, comment);
   }
@@ -64,7 +71,6 @@ export class PostsController {
   createPostsLike(
     @Param('userId', ValidationPipe) userId,
     @Param('postsId', ValidationPipe) postsId,
-   
   ) {
     return this.postsServices.create_posts_like(userId, postsId);
   }
@@ -73,10 +79,7 @@ export class PostsController {
   deletePostsLike(
     @Param('userId', ValidationPipe) userId,
     @Param('postsId', ValidationPipe) postsId,
-   
   ) {
     return this.postsServices.delete_posts_like(userId, postsId);
   }
-
-
 }

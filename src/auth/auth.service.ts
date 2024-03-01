@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/entity';
-import { UserDto } from 'src/models/user.dto';
+import { LoginDto, UserDto } from 'src/models/user.dto';
 import { Role } from 'src/interface';
 import { UserService } from 'src/user/user.service';
 
@@ -39,26 +39,24 @@ export class AuthService {
       newUser,
     };
   }
-  async Login({ contact, password }: UserDto) {
-    console.log('password :', password);
-
+  async Login({ contact, password }: LoginDto) {
     const authUser = await this.userService.findUserByContact(contact);
-    const valideUser = authUser.comparePassword(password);
-    // console.log('authUser :', valideUser);
+    const isValidUser = authUser.comparePassword(password);
+    // console.log('authUser :', isValidUser);
 
-    if (valideUser) {
+    if (isValidUser) {
       const { password, createAt, salt, updateAt, ...user } = authUser;
       const playload = {
         contact: authUser.contact,
       };
       const token = this.jwtService.sign(playload);
-      return await {
+      return {
         status: 'ok',
         token,
         ...user,
       };
     } else {
-      throw new NotFoundException('user credentials errorne');
+      throw new NotFoundException('user credentials error');
     }
   }
 }

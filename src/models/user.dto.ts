@@ -1,31 +1,40 @@
-import {
-  IsInt,
-  IsString,
-  IsEmpty,
-  IsNotEmpty,
-  IsPositive,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class UserDto {
-  // @IsString()
-  // @IsEmpty()
-  nom?: string;
-  // @IsString()
-  // @IsEmpty()
-  prenom?: string;
-  // @IsInt()
-  // @IsNotEmpty()
-  // @IsPositive()
-  contact?: number;
-  // @IsString()
-  // @IsEmpty()
-  avatar?: string;
-  // @IsString()
-  // @IsEmpty()
-  adress?: string;
-  // @IsNotEmpty()
-  username: string;
-  // @IsString()
-  // @IsNotEmpty()
+export class LoginDto {
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  contact: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   password: string;
+}
+export class UserDto extends LoginDto {
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  nom?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  prenom?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  avatar?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  adress?: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  username: string;
 }

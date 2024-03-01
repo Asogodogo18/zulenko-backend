@@ -7,7 +7,7 @@ import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Posts, Images,Comment,PostsLike]),
+    TypeOrmModule.forFeature([User, Posts, Images, Comment, PostsLike]),
     forwardRef(() => UserModule),
   ],
   controllers: [PostsController],

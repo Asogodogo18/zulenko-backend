@@ -1,43 +1,69 @@
-import { IsEmpty, IsNumber } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class MeasureDto {
-  // @IsNumber()
-  // @IsEmpty()
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   chest: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   waist: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   hips: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   arm_lenght_short: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   arm_lenght_long: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   arm_circumference: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   leg_lenght: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   shoulders: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   collar: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   head_circumference: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   inseam: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   height: number;
-  // @IsNumber()
-  // @IsEmpty()
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
   tigh_lenght: number;
 }
